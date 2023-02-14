@@ -1,1 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Components Layer*/
+@layer components {
+}
+
+/* Utilities Layer */
+@layer utilities {
+  .container {
+    width: 1240px;
+    max-width: 100%;
+    margin: auto;
+    padding: 0px 15px 0px 15px;
+  }
+}
+
+nav a.active {
+  color: #ff9900;
+}
+
+input {
+  outline: none;
+}
