@@ -4,6 +4,9 @@
 
 /* Components Layer*/
 @layer components {
+  .footer_bs {
+    @apply ml-[10px];
+  }
 }
 
 /* Utilities Layer */
@@ -22,4 +25,9 @@ nav a.active {
 
 input {
   outline: none;
+}
+
+.active,
+.dot:hover {
+  background-color: #fff !important ;
 }

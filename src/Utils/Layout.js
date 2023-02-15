@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Menu from "../Components/Menu/Menu.js";
+import Footer from "../Components/Footer/Footer.js";
 
 const Layout = ({
   title = "Online Shop | ECommerce-ShopIt",
@@ -16,6 +17,7 @@ const Layout = ({
       <section>
         <div className={className}>{children}</div>
       </section>
+      <Footer />
     </main>
   );
 };
