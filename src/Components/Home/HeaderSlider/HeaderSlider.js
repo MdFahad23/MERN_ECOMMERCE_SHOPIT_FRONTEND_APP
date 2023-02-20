@@ -4,17 +4,9 @@ import { Carousel } from "react-carousel-minimal";
 import Banner1 from "../../../Images/Banner1.jpg";
 import Banner2 from "../../../Images/Banner2.jpg";
 import Banner3 from "../../../Images/Banner3.jpg";
-import Banner4 from "../../../Images/Banner4.jpg";
-import Banner5 from "../../../Images/Banner5.jpg";
 
 const HeaderSlider = () => {
-  const data = [
-    { image: Banner1 },
-    { image: Banner2 },
-    { image: Banner3 },
-    { image: Banner4 },
-    { image: Banner5 },
-  ];
+  const data = [{ image: Banner1 }, { image: Banner2 }, { image: Banner3 }];
 
   return (
     <div>

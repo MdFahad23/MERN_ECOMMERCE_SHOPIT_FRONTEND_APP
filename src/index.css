@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #e7e8ec;
+}
+
 /* Components Layer*/
 @layer components {
   .footer_bs {
@@ -29,5 +33,5 @@ input {
 
 .active,
 .dot:hover {
-  background-color: #fff !important ;
+  background-color: #ffffffa6 !important;
 }
