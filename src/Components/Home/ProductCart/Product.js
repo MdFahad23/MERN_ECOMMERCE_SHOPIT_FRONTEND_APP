@@ -27,10 +27,17 @@ const Product = ({ product }) => {
                 key={product._id}
                 className="xl:col-span-2 md:col-span-3 h-[380px] bg-[#fff] border-1 border-[#fffdfd00] shadow-cart_shadow cursor-pointer"
               >
-                <Link to="/">
-                  <div className="h-[220px] xl:pt-4 inline-block">
+                <Link
+                  to={`/${product._id}`}
+                  state={{
+                    id: product._id,
+                    name: product.name,
+                    price: product.price,
+                  }}
+                >
+                  <div className="h-[220px] xl:pt-4">
                     <img
-                      style={{ height: "200px" }}
+                      className="h-[200px] inline-block w-[100%]"
                       src={photoUrl}
                       alt={product.name}
                     />
