@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import Layout from "../../Utils/Layout";
 import HeaderSlider from "./HeaderSlider/HeaderSlider";
 import Product from "./ProductCart/Product";
-import { getProduct } from "../../redux/actions/productAction";
+import { clearError, getProduct } from "../../redux/actions/productAction";
 import Loading from "../Layout/Loader/Loading";
 
 const Home = () => {
@@ -16,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     if (error) {
       alert.error(error);
+      dispatch(clearError());
     }
     dispatch(getProduct());
   }, [dispatch, error, alert]);

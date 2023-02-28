@@ -31,7 +31,7 @@ const Menu = () => {
                       <NavLink to="/">Home</NavLink>
                     </li>
                     <li className="lg:mr-[25px] lg:text-[22px]">
-                      <NavLink to="/">
+                      <NavLink to="/cart">
                         <AiOutlineShoppingCart />
                       </NavLink>
                     </li>
