@@ -16,7 +16,7 @@ const Reviews = ({ reviews }) => {
           {reviews.map((reviews) => (
             <div className="col-span-2 max-lg:col-span-3 max-sm:col-span-6 bg-[#FAFAFA] pb-[30px]">
               <div className="py-[30px] text-center">
-                <span className="text-[25px] border rounded-full py-[10px] px-[20px] bg-[#fdfdfd]">
+                <span className="text-[25px] border rounded-full py-[10px] px-[20px] bg-[#7dd3fc] text-[#fff]">
                   F
                 </span>
               </div>
