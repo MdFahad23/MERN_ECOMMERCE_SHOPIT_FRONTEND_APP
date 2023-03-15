@@ -88,12 +88,6 @@ const Menu = () => {
                 {/* User Details */}
                 <div className="mt-1 text-[22px]">
                   {/* Main List */}
-                  <li className="hidden">
-                    <NavLink to="/">
-                      <AiOutlineLogin />
-                    </NavLink>
-                  </li>
-                  {/* Main List */}
                   <li>
                     <div
                       onClick={handelMenu}
@@ -158,7 +152,15 @@ const Menu = () => {
                             <AiOutlineShoppingCart className="mr-[8px]" /> Cart
                           </NavLink>
                         </li>
+
                         {/* List */}
+                        <li className="nav_list">
+                          <NavLink to="/register" className="nav_link">
+                            <AiOutlineLogin className="mr-[8px]" /> Register
+                          </NavLink>
+                        </li>
+
+                        {/* List Logout */}
                         <li className="text-[18px] border-b-[1px] text-center border-[#d7d7d72b] font-Roboto font-bold pl-[10px] py-[5px] bg-[#E6E6E6] hover:z-50">
                           <NavLink
                             to="/Cart"

@@ -4,7 +4,7 @@ import { useAlert } from "react-alert";
 
 import Layout from "../../Utils/Layout";
 import HeaderSlider from "./HeaderSlider/HeaderSlider";
-import Product from "./ProductCart/Product";
+import ProductCart from "./ProductCart/ProductCart";
 import { clearError, getProduct } from "../../redux/actions/productAction";
 import Loading from "../Layout/Loader/Loading";
 
@@ -25,7 +25,7 @@ const Home = () => {
     <Layout title="Home/Online Shop | ECommerce-ShopIt" className="lg:pt-[3px]">
       <HeaderSlider />
       <div className="container">
-        {loading ? <Loading /> : <Product product={products} />}
+        {loading ? <Loading /> : <ProductCart product={products} />}
       </div>
     </Layout>
   );

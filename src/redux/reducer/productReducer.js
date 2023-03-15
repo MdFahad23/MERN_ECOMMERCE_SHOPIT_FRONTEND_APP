@@ -12,6 +12,7 @@ export const productsReducer = (state = { products: [] }, action) => {
         loading: false,
         products: action.payload.product,
         productCount: action.payload.productCount,
+        resultPerPage: action.payload.resultPerPage,
       };
     case actionTypes.ALL_PRODUCT_FAIL:
       return {
@@ -24,6 +25,21 @@ export const productsReducer = (state = { products: [] }, action) => {
         error: null,
       };
 
+    default:
+      return state;
+  }
+};
+
+export const CategoryReducer = (state = { Category: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.ALL_CATEGORY_SUCCESS:
+      return {
+        Category: action.payload,
+      };
+    case actionTypes.ALL_CATEGORY_FAIL:
+      return {
+        error: action.payload,
+      };
     default:
       return state;
   }

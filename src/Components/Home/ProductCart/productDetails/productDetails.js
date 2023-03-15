@@ -29,7 +29,7 @@ const ProductDetails = () => {
   } = state;
 
   return (
-    <Layout title="Product/Details-Page" className="bg-[#EFF0F5]">
+    <Layout title={`${name}/Product-Details Page`} className="bg-[#EFF0F5]">
       <div className="container">
         <div>
           <div className="py-[20px]">

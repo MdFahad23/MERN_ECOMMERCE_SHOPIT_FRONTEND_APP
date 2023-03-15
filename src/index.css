@@ -16,6 +16,17 @@ body {
     @apply flex items-center;
   }
 
+  /* pagination Products */
+  .page-item {
+    @apply mr-[20px];
+  }
+  .page-link {
+    @apply text-[18px] font-Roboto font-semibold hover:border-2 hover:rounded-full hover:py-[5px] hover:px-[10px] hover:bg-[#7dd3fc] hover:text-[#fff] hover:duration-700;
+  }
+  .pageLinkActive {
+    @apply border-2 rounded-full py-[5px] px-[10px] bg-[#7dd3fc] text-[#fff];
+  }
+
   /* Footer */
   .footer_bs {
     @apply ml-[10px];
@@ -52,6 +63,13 @@ body {
   }
 }
 
+/* pagination Products */
+.pagination {
+  display: flex;
+  padding: 30px 0px 50px 0px;
+}
+
+/* Base Css */
 nav a.active {
   color: #ff9900;
 }
