@@ -9,10 +9,18 @@ import {
 } from "react-icons/ai";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { MdProductionQuantityLimits } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { signOut, isAuthentication, userInfo } from "../../Utils/auth";
+import { clearUser } from "../../redux/actions/userAction";
+import { API } from "../../Utils/config";
 
 // Menu Function
 const Menu = () => {
+  let dispatch = useDispatch();
+
   const [Menu, setMenu] = useState(false);
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
@@ -58,11 +66,15 @@ const Menu = () => {
                       <NavLink to="/products">Products</NavLink>
                     </li>
                     {/* Main List */}
-                    <li className="lg:mr-[25px] lg:text-[22px] max-lg:hidden">
-                      <NavLink to="/cart">
-                        <AiOutlineShoppingCart />
-                      </NavLink>
-                    </li>
+                    {isAuthentication() && (
+                      <>
+                        <li className="lg:mr-[25px] lg:text-[22px] max-lg:hidden">
+                          <NavLink to="/cart">
+                            <AiOutlineShoppingCart />
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
                     {/* Search bar */}
                     <li className="cursor-pointer">
                       <span className="flex items-center max-lg:mr-[30px] bg-[#F9F9F9]">
@@ -87,16 +99,32 @@ const Menu = () => {
                 </div>
                 {/* User Details */}
                 <div className="mt-1 text-[22px]">
-                  {/* Main List */}
+                  {/* Main List Toggle button */}
                   <li>
                     <div
                       onClick={handelMenu}
                       className="cursor-pointer flex items-center bg-[#f7f8fa] shadow-4xl pl-[20px] pr-[20px] rounded-2xl hover:bg-[#E6E6E6] hover:border-[#DEDFE0] duration-700 delay-200 relative"
                     >
                       <div className="pt-[5px] pb-[5px]">
-                        <span className="mr-[8px] border rounded-full pl-[5px] pr-[5px] bg-[#7dd3fc] text-[#fff]">
-                          M
-                        </span>
+                        {isAuthentication() ? (
+                          <>
+                            {userInfo().photo ? (
+                              <img
+                                src={`${API}/public/images/${userInfo().photo}`}
+                                className="w-[30px] h-[30px] rounded-full mr-[8px]"
+                                alt="P"
+                              />
+                            ) : (
+                              <span className="mr-[8px] border rounded-full pl-[5px] pr-[5px] bg-[#7dd3fc] text-[#fff] font-Roboto font-bold">
+                                {userInfo().name.slice(0, 1)}
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <span>
+                            <FaUserCircle className="mr-[8px] border rounded-full" />
+                          </span>
+                        )}
                       </div>
                       {Menu ? (
                         <span>
@@ -116,22 +144,40 @@ const Menu = () => {
                           : "absolute bg-[#fff] dropdown_menu_right hidden opacity-0"
                       }
                     >
+                      {/* UL List */}
                       <ul className="w-[300px]">
-                        {/* List */}
-                        <li className="flex items-center border-b-[1px] pl-[5px] py-[15px]">
-                          <div>
-                            <span className="mr-[8px] border rounded-full py-[10px] bg-[#7dd3fc] text-[#fff] px-[15px]">
-                              M
-                            </span>
-                          </div>
-                          <div className=" leading-[1]">
-                            <span className="text-[15px]">Md Fahad</span>
-                            <br />
-                            <span className="text-[15px]">
-                              fahadbdctglh8@gmail.com
-                            </span>
-                          </div>
-                        </li>
+                        {isAuthentication() && (
+                          <>
+                            {/* List */}
+                            <li className="flex items-center border-b-[1px] pl-[5px] py-[15px]">
+                              <div>
+                                {userInfo().photo ? (
+                                  <img
+                                    src={`${API}/public/images/${
+                                      userInfo().photo
+                                    }`}
+                                    className="w-[50px] h-[50px] rounded-full mr-[8px] border-[3px]"
+                                    alt="P"
+                                  />
+                                ) : (
+                                  <span className="mr-[8px] border rounded-full py-[10px] bg-[#7dd3fc] text-[#fff] px-[15px] font-Roboto font-bold">
+                                    {userInfo().name.slice(0, 1)}
+                                  </span>
+                                )}
+                              </div>
+                              <div className=" leading-[1]">
+                                <span className="text-[15px] font-Roboto font-semibold">
+                                  {userInfo().name}
+                                </span>
+                                <br />
+                                <span className="text-[15px] font-Roboto font-semibold">
+                                  {userInfo().email}
+                                </span>
+                              </div>
+                            </li>
+                          </>
+                        )}
+
                         {/* List */}
                         <li className="nav_list lg:hidden">
                           <NavLink to="/" className="nav_link">
@@ -146,29 +192,41 @@ const Menu = () => {
                             Products
                           </NavLink>
                         </li>
-                        {/* List */}
-                        <li className="nav_list lg:hidden">
-                          <NavLink to="/Cart" className="nav_link">
-                            <AiOutlineShoppingCart className="mr-[8px]" /> Cart
-                          </NavLink>
-                        </li>
 
-                        {/* List */}
-                        <li className="nav_list">
-                          <NavLink to="/register" className="nav_link">
-                            <AiOutlineLogin className="mr-[8px]" /> Register
-                          </NavLink>
-                        </li>
+                        {isAuthentication() && (
+                          <>
+                            {/* List */}
+                            <li className="nav_list lg:hidden">
+                              <NavLink to="/Cart" className="nav_link">
+                                <AiOutlineShoppingCart className="mr-[8px]" />{" "}
+                                Cart
+                              </NavLink>
+                            </li>
+                            {/* List Logout */}
+                            <li className="text-[18px] border-b-[1px] text-center border-[#d7d7d72b] font-Roboto font-bold pl-[10px] py-[5px] bg-[#E6E6E6] hover:z-50">
+                              <span
+                                className="nav_link justify-center text-[#0369a1] hover:text-[#000] duration-700 cursor-pointer"
+                                onClick={() => {
+                                  dispatch(clearUser());
+                                  signOut(navigate("/login"));
+                                }}
+                              >
+                                <AiOutlineLogout className="mr-[8px]" /> Logout
+                              </span>
+                            </li>
+                          </>
+                        )}
 
-                        {/* List Logout */}
-                        <li className="text-[18px] border-b-[1px] text-center border-[#d7d7d72b] font-Roboto font-bold pl-[10px] py-[5px] bg-[#E6E6E6] hover:z-50">
-                          <NavLink
-                            to="/Cart"
-                            className="nav_link justify-center text-[#0369a1] hover:text-[#000] duration-700"
-                          >
-                            <AiOutlineLogout className="mr-[8px]" /> Logout
-                          </NavLink>
-                        </li>
+                        {!isAuthentication() && (
+                          <>
+                            {/* List */}
+                            <li className="nav_list">
+                              <NavLink to="/login" className="nav_link">
+                                <AiOutlineLogin className="mr-[8px]" /> Register
+                              </NavLink>
+                            </li>
+                          </>
+                        )}
                       </ul>
                     </div>
                   </li>

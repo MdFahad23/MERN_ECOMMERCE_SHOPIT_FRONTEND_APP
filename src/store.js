@@ -6,10 +6,12 @@ import {
   productsReducer,
   CategoryReducer,
 } from "./redux/reducer/productReducer";
+import { UserReducer } from "./redux/reducer/userReducer";
 
 const reducer = combineReducers({
   products: productsReducer,
   Category: CategoryReducer,
+  User: UserReducer,
 });
 
 const initialState = {};

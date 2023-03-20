@@ -5,7 +5,8 @@ import Home from "../Components/Home/Home";
 import ProductDetails from "../Components/Home/ProductCart/productDetails/productDetails";
 import Products from "../Components/products/products";
 import Cart from "../Components/Cart/Cart";
-import Register from "../Components/Register/Register";
+import LoginUser from "../Components/UserRegister/LoginUser/LoginUser";
+import SignIn from "../Components/UserRegister/CreateNewAccount/SignIn";
 
 const Router = () => {
   return (
@@ -16,7 +17,8 @@ const Router = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
 
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginUser />} />
+        <Route path="/register" element={<SignIn />} />
 
         <Route path="/Cart" element={<Cart />} />
       </Routes>
