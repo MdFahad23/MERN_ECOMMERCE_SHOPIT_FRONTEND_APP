@@ -97,6 +97,7 @@ const Menu = () => {
                     </li>
                   </div>
                 </div>
+
                 {/* User Details */}
                 <div className="mt-1 text-[22px]">
                   {/* Main List Toggle button */}
@@ -136,6 +137,7 @@ const Menu = () => {
                         </span>
                       )}
                     </div>
+
                     {/* Nav Toggle List */}
                     <div
                       className={
@@ -178,6 +180,7 @@ const Menu = () => {
                           </>
                         )}
 
+                        {/* Responsive List */}
                         {/* List */}
                         <li className="nav_list lg:hidden">
                           <NavLink to="/" className="nav_link">
@@ -200,6 +203,12 @@ const Menu = () => {
                               <NavLink to="/Cart" className="nav_link">
                                 <AiOutlineShoppingCart className="mr-[8px]" />{" "}
                                 Cart
+                              </NavLink>
+                            </li>
+                            {/* List */}
+                            <li className="nav_list">
+                              <NavLink to="/user/profile" className="nav_link">
+                                <FaUserCircle className="mr-[8px]" /> Profile
                               </NavLink>
                             </li>
                             {/* List Logout */}

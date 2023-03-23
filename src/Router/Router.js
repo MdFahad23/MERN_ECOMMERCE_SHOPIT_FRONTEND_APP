@@ -7,6 +7,8 @@ import Products from "../Components/products/products";
 import Cart from "../Components/Cart/Cart";
 import LoginUser from "../Components/UserRegister/LoginUser/LoginUser";
 import SignIn from "../Components/UserRegister/CreateNewAccount/SignIn";
+import Protected from "./ProtectedRoutes";
+import UserProfile from "../Components/UserRegister/UserProfile/UserProfile";
 
 const Router = () => {
   return (
@@ -20,7 +22,24 @@ const Router = () => {
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<SignIn />} />
 
-        <Route path="/Cart" element={<Cart />} />
+        <Route
+          path="/user/profile"
+          element={
+            <Protected>
+              <UserProfile />{" "}
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/Cart"
+          element={
+            <Protected>
+              {" "}
+              <Cart />
+            </Protected>
+          }
+        />
       </Routes>
     </>
   );

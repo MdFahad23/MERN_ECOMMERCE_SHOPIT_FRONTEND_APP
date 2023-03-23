@@ -21,10 +21,9 @@ export const isAuthentication = () => {
   }
 };
 
-export const signOut = (cb) => {
+export const signOut = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
-    cb();
   }
 };
 
