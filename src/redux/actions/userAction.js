@@ -52,6 +52,30 @@ export const RegisterUsers = (FormData) => async (dispatch) => {
   }
 };
 
+// Update Profile
+export const updateProfile = (token, FormData) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.UPDATE_PROFILE_REQUEST });
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.put(
+      `${API}/api/v1/user/update/me`,
+      FormData,
+      config
+    );
+
+    dispatch({ type: actionTypes.UPDATE_PROFILE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.UPDATE_PROFILE_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
 // Clear User
 export const clearUser = () => async (dispatch) => {
   dispatch({ type: actionTypes.CLEAR_USER });

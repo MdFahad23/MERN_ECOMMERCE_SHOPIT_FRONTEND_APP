@@ -1,5 +1,6 @@
 import * as actionTypes from "../actionTypes/userActionTypes";
 
+// User Reducer
 export const UserReducer = (state = {}, action) => {
   switch (action.type) {
     case actionTypes.LOGIN_REQUEST:
@@ -27,6 +28,37 @@ export const UserReducer = (state = {}, action) => {
         ...state,
         loading: false,
         User: null,
+        errors: action.payload,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
+        errors: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Profile Reducer
+export const profileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.UPDATE_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdate: action.payload,
+      };
+    case actionTypes.UPDATE_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
         errors: action.payload,
       };
     case actionTypes.CLEAR_ERRORS:
