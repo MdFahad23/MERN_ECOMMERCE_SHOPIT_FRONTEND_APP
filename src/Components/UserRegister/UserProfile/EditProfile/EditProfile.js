@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 import { BsCameraFill } from "react-icons/bs";
 import { MdAlternateEmail } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -11,9 +11,10 @@ import Layout from "../../../../Utils/Layout";
 import userImg from "../../../../Images/User-img.jpg";
 import {
   clearError,
+  clearUser,
   updateProfile,
 } from "../../../../redux/actions/userAction";
-import { userInfo } from "../../../../Utils/auth";
+import { signOut, userInfo } from "../../../../Utils/auth";
 import Loading from "../../../Layout/Loader/Loading";
 import { API } from "../../../../Utils/config";
 
@@ -31,7 +32,9 @@ const EditProfile = () => {
 
   let { name, email } = user;
 
-  const { errors, loading, isUpdate } = useSelector((state) => state.Profile);
+  const { errors, loading, isUpdate, update } = useSelector(
+    (state) => state.Profile
+  );
 
   const handelImageChange = (e) => {
     if (e.target.files) {
@@ -61,11 +64,11 @@ const EditProfile = () => {
   useEffect(() => {
     if (errors) {
       alert.error(errors);
-    } else if (isUpdate) {
+    } else if (update === true) {
       alert.success(isUpdate.message);
     }
     dispatch(clearError());
-  }, [dispatch, alert, errors, isUpdate]);
+  }, [dispatch, alert, errors, update, isUpdate]);
 
   useEffect(() => {
     if (userInfo()) {
@@ -74,9 +77,13 @@ const EditProfile = () => {
     }
   }, []);
 
-  const redirectUser = () => {
-    if (isUpdate) return navigate("/profile");
-  };
+  useEffect(() => {
+    dispatch(clearUser());
+    if (update === true) {
+      signOut();
+      navigate("/login");
+    }
+  }, [dispatch, navigate, update]);
 
   return (
     <Layout
@@ -91,7 +98,6 @@ const EditProfile = () => {
           </>
         ) : (
           <>
-            {redirectUser}
             <div className="py-[80px] md:w-[800px] m-auto">
               <form
                 className=" bg-[#F9FAFC] rounded-[7px]"

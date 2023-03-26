@@ -10,6 +10,7 @@ import SignIn from "../Components/UserRegister/CreateNewAccount/SignIn";
 import Protected from "./ProtectedRoutes";
 import UserProfile from "../Components/UserRegister/UserProfile/UserProfile";
 import EditProfile from "../Components/UserRegister/UserProfile/EditProfile/EditProfile";
+import UpdatePassword from "../Components/UserRegister/UserProfile/EditProfile/UpdatePassword/UpdatePassword";
 
 const Router = () => {
   return (
@@ -37,6 +38,15 @@ const Router = () => {
           element={
             <Protected>
               <EditProfile />{" "}
+            </Protected>
+          }
+        />
+
+        <Route
+          path="/update/password"
+          element={
+            <Protected>
+              <UpdatePassword />{" "}
             </Protected>
           }
         />

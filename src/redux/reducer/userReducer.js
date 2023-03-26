@@ -45,20 +45,30 @@ export const UserReducer = (state = {}, action) => {
 export const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_PROFILE_REQUEST:
+    case actionTypes.UPDATE_PASSWORD_REQUEST:
       return {
         ...state,
         loading: true,
       };
     case actionTypes.UPDATE_PROFILE_SUCCESS:
+    case actionTypes.UPDATE_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
+        update: true,
         isUpdate: action.payload,
       };
+    case actionTypes.UPDATE_PROFILE_RESET:
+      return {
+        ...state,
+        update: false,
+      };
     case actionTypes.UPDATE_PROFILE_FAIL:
+    case actionTypes.UPDATE_PASSWORD_FAIL:
       return {
         ...state,
         loading: false,
+        update: false,
         errors: action.payload,
       };
     case actionTypes.CLEAR_ERRORS:

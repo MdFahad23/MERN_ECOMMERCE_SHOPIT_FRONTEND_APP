@@ -76,9 +76,36 @@ export const updateProfile = (token, FormData) => async (dispatch) => {
   }
 };
 
+// Update Password
+export const updatePassword = (token, FormData) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.UPDATE_PASSWORD_REQUEST });
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.put(
+      `${API}/api/v1/user/password/update`,
+      FormData,
+      config
+    );
+
+    authentication(data.token);
+
+    dispatch({ type: actionTypes.UPDATE_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.UPDATE_PROFILE_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
 // Clear User
 export const clearUser = () => async (dispatch) => {
   dispatch({ type: actionTypes.CLEAR_USER });
+  dispatch({ type: actionTypes.UPDATE_PROFILE_RESET });
 };
 
 // Clear Error

@@ -45,7 +45,7 @@ const UserProfile = () => {
                 My Order
               </Link>
               <Link
-                to="/password/update"
+                to="/update/password"
                 className="bg-[#006db1] font-OpenSans font-semibold text-white px-[15px] py-[5px] capitalize mr-[20px] rounded-xl inline-block cursor-pointer hover:bg-[#2e98da] duration-700 mt-2"
               >
                 Change Password
