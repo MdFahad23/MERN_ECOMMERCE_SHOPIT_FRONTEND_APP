@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { MdLock, MdLockOpen, MdVpnKey } from "react-icons/md";
+import { MdLock, MdLockOpen } from "react-icons/md";
 
 import Layout from "../../../../../Utils/Layout";
-import { signOut, userInfo } from "../../../../../Utils/auth";
-import {
-  updatePassword,
-  clearError,
-  clearUser,
-} from "../../../../../redux/actions/userAction";
 import Loading from "../../../../Layout/Loader/Loading";
+import {
+  clearError,
+  resetPassword,
+} from "../../../../../redux/actions/userAction";
 
-const UpdatePassword = () => {
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
 
+  const { resetToken } = useParams();
+
   const [user, setUser] = useState({
-    oldPassword: "",
-    newPassword: "",
+    password: "",
     confirmPassword: "",
   });
 
-  let { oldPassword, newPassword, confirmPassword } = user;
+  let { password, confirmPassword } = user;
 
-  const { errors, loading, update } = useSelector((state) => state.Profile);
+  const { loading, errors, success } = useSelector(
+    (state) => state.ForgotPassword
+  );
 
   const handelChange = (e) => {
     setUser({
@@ -38,33 +39,31 @@ const UpdatePassword = () => {
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    const formData = {
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-      confirmPassword: confirmPassword,
-    };
-    dispatch(updatePassword(userInfo().jwt, formData));
+
+    let formData = new FormData();
+
+    formData.set("password", password);
+    formData.set("confirmPassword", confirmPassword);
+
+    dispatch(resetPassword(resetToken, formData));
   };
 
   useEffect(() => {
-    if (errors) {
-      alert.error(errors);
-    } else if (update === true) {
-      alert.success("Successfully Password Update!");
-    }
-    dispatch(clearError());
-  }, [dispatch, alert, errors, update]);
-
-  useEffect(() => {
-    dispatch(clearUser());
-    if (update === true) {
-      signOut();
+    if (success) {
+      alert.success(success.message);
       navigate("/login");
     }
-  }, [dispatch, navigate, update]);
+  }, [success, alert, navigate]);
+
+  useEffect(() => {
+    if (errors) {
+      alert.error("Token is Invalid!");
+    }
+    dispatch(clearError());
+  }, [alert, errors, dispatch]);
 
   return (
-    <Layout title="Update Password/Online Shop | ECommerce-ShopIt">
+    <Layout title="Reset Password/Online Shop | ECommerce-ShopIt">
       <div className="container">
         {loading ? (
           <>
@@ -86,32 +85,19 @@ const UpdatePassword = () => {
                       Welcome ShopIt :)
                     </h4>
                     <p className="text-[20px] font-Item font-medium md:px-[20px] pb-[50px]">
-                      To keep connected with us please Update your Password with
+                      To keep connected with us please Reset your Password with
                       your personal information
                       <IoIosNotificationsOutline className="text-[20px] text-[#ff004c] inline-block" />
                     </p>
                   </div>
 
-                  {/* Login input OldPassword */}
-                  <span className="flex items-center relative md:w-[80%] max-[767px]:w-[100%] m-auto">
-                    <MdVpnKey className="absolute ml-1 text-[20px]" />{" "}
-                    <input
-                      type="password"
-                      name="oldPassword"
-                      placeholder="Old Password"
-                      required
-                      className="w-[100%] pl-[36px] p-[5px] font-Roboto font-semibold"
-                      onChange={handelChange}
-                    />
-                  </span>
-                  <br />
                   {/* Login input newPassword */}
                   <span className="flex items-center relative md:w-[80%] max-[767px]:w-[100%] m-auto">
                     <MdLockOpen className="absolute ml-1 text-[20px]" />{" "}
                     <input
                       type="password"
-                      name="newPassword"
-                      placeholder="New Password"
+                      name="password"
+                      placeholder="Password"
                       required
                       className="w-[100%] pl-[36px] p-[5px] font-Roboto font-semibold"
                       onChange={handelChange}
@@ -136,7 +122,7 @@ const UpdatePassword = () => {
                     <input
                       type="submit"
                       name="submit"
-                      value="Update Password"
+                      value="Reset Password"
                       className="cursor-pointer py-[10px] px-[25px] bg-[#fff] font-OpenSans font-semibold rounded-full hover:bg-[#3C8CFB] hover:text-[#fff] duration-700"
                     />
                   </div>
@@ -150,4 +136,4 @@ const UpdatePassword = () => {
   );
 };
 
-export default UpdatePassword;
+export default ResetPassword;

@@ -102,6 +102,58 @@ export const updatePassword = (token, FormData) => async (dispatch) => {
   }
 };
 
+// Forgot Password
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.FORGOT_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "content-type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API}/api/v1/user/password/forget`,
+      email,
+      config
+    );
+
+    dispatch({ type: actionTypes.FORGOT_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.FORGOT_PASSWORD_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+// Reset Password
+export const resetPassword = (token, password) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.RESET_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "content-type": "application/json",
+      },
+    };
+
+    const { data } = await axios.put(
+      `${API}/api/v1/user/password/reset/${token}`,
+      password,
+      config
+    );
+
+    dispatch({ type: actionTypes.RESET_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.RESET_PASSWORD_FAIL,
+      payload: error,
+    });
+  }
+};
+
 // Clear User
 export const clearUser = () => async (dispatch) => {
   dispatch({ type: actionTypes.CLEAR_USER });

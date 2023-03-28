@@ -124,7 +124,7 @@ const LoginUser = () => {
                     </label>
                   </div>
                   <Link
-                    to="/"
+                    to="/password/forgot"
                     className="font-Roboto font-semibold text-[#959595] hover:text-[#38bdf8] duration-700 hover:underline max-[380px]:mt-[25px]"
                   >
                     Forget Password?
