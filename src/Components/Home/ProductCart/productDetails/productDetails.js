@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { AiOutlineRight } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import ReactStart from "react-rating-stars-component";
+import { useAlert } from "react-alert";
+import { AiOutlineRight } from "react-icons/ai";
 
 import Layout from "../../../../Utils/Layout";
 import { API } from "../../../../Utils/config";
 import Reviews from "./Reviews/Reviews";
+import { isAuthentication, userInfo } from "../../../../Utils/auth";
+import { AddCartItem } from "../../../../redux/actions/CartAction";
+import { clearError } from "../../../../redux/actions/userAction";
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+
   const options = {
     edit: false,
     color: "rgba(20, 20, 20, 0.1)",
@@ -15,6 +23,10 @@ const ProductDetails = () => {
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
   };
+
+  const { message, success, errors } = useSelector(
+    (state) => state.AddCartItem
+  );
 
   const { state } = useLocation();
   const {
@@ -27,6 +39,27 @@ const ProductDetails = () => {
     description,
     reviews,
   } = state;
+
+  const handleAddCartItem = (product) => () => {
+    if (isAuthentication()) {
+      const cartItem = {
+        product: product.id,
+        price: product.price,
+      };
+      dispatch(AddCartItem(userInfo().jwt, cartItem));
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      alert.show(message);
+    } else if (success) {
+      alert.success(success.message);
+    } else if (errors) {
+      alert.error(errors.message);
+      dispatch(clearError());
+    }
+  }, [dispatch, alert, message, success, errors]);
 
   return (
     <Layout title={`${name}/Product-Details Page`} className="bg-[#EFF0F5]">
@@ -78,6 +111,7 @@ const ProductDetails = () => {
                 <button
                   className="bg-[#006db1] font-OpenSans font-semibold text-white px-[15px] py-[5px] capitalize mr-[20px] rounded-xl inline-block cursor-pointer hover:bg-[#2e98da] duration-700 mt-2"
                   disabled={quantity < 1 ? true : false}
+                  onClick={handleAddCartItem(state)}
                 >
                   Add To Cart
                 </button>
