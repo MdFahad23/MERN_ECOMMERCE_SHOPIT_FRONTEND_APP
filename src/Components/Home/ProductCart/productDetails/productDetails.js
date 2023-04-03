@@ -42,11 +42,13 @@ const ProductDetails = () => {
 
   const handleAddCartItem = (product) => () => {
     if (isAuthentication()) {
+      let { _id, jwt } = userInfo();
       const cartItem = {
+        user: _id,
         product: product.id,
         price: product.price,
       };
-      dispatch(AddCartItem(userInfo().jwt, cartItem));
+      dispatch(AddCartItem(jwt, cartItem));
     }
   };
 

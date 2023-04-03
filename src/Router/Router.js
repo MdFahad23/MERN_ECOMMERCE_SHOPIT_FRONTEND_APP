@@ -14,6 +14,7 @@ import EditProfile from "../Components/UserRegister/UserProfile/EditProfile/Edit
 import UpdatePassword from "../Components/UserRegister/UserProfile/EditProfile/UpdatePassword/UpdatePassword";
 import ForgotPassword from "../Components/UserRegister/LoginUser/forgotPassword/forgotPassword";
 import ResetPassword from "../Components/UserRegister/LoginUser/forgotPassword/ResetPassword/ResetPassword";
+import ShippingAddress from "../Components/Cart/ShippingAddress/ShippingAddress";
 
 const Router = () => {
   return (
@@ -93,6 +94,15 @@ const Router = () => {
             <Protected>
               {" "}
               <Cart />
+            </Protected>
+          }
+        />
+        <Route
+          path="/shipping-address"
+          element={
+            <Protected>
+              {" "}
+              <ShippingAddress />
             </Protected>
           }
         />
