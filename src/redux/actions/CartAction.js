@@ -69,6 +69,38 @@ export const DeleteCartItem = (token, id) => async (dispatch) => {
   }
 };
 
+// Add Shipping Address
+export const AddShippingAddress = (token, address) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.SHIPPING_ADDRESS_REQUEST });
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.post(`${API}/api/v1/profile`, address, config);
+
+    dispatch({ type: actionTypes.SHIPPING_ADDRESS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: actionTypes.SHIPPING_ADDRESS_FAIL, payload: error });
+  }
+};
+
+// Add Shipping Address
+export const GetShippingAddress = (token) => async (dispatch) => {
+  try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.get(`${API}/api/v1/profile`, config);
+
+    dispatch({ type: actionTypes.GET_SHIPPING_ADDRESS, payload: data });
+  } catch (error) {
+    dispatch({ type: actionTypes.GET_SHIPPING_ADDRESS_FAIL, payload: error });
+  }
+};
+
 // Clear Error
 export const clearError = () => async (dispatch) => {
   dispatch({ type: actionTypes.CLEAR_ERRORS });

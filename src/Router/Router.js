@@ -15,6 +15,7 @@ import UpdatePassword from "../Components/UserRegister/UserProfile/EditProfile/U
 import ForgotPassword from "../Components/UserRegister/LoginUser/forgotPassword/forgotPassword";
 import ResetPassword from "../Components/UserRegister/LoginUser/forgotPassword/ResetPassword/ResetPassword";
 import ShippingAddress from "../Components/Cart/ShippingAddress/ShippingAddress";
+import ShippingDetails from "../Components/Cart/ShippingAddress/ShippingDetails/ShippingDetails";
 
 const Router = () => {
   return (
@@ -103,6 +104,15 @@ const Router = () => {
             <Protected>
               {" "}
               <ShippingAddress />
+            </Protected>
+          }
+        />
+        <Route
+          path="/shipping-details"
+          element={
+            <Protected>
+              {" "}
+              <ShippingDetails />
             </Protected>
           }
         />

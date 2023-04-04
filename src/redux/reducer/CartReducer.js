@@ -1,5 +1,6 @@
 import * as actionTypes from "../actionTypes/CartActionTypes";
 
+// Cart Reducer
 export const CartItemReducer = (state = {}, action) => {
   switch (action.type) {
     case actionTypes.ADD_CART_REQUEST:
@@ -58,6 +59,51 @@ export const CartItemReducer = (state = {}, action) => {
     case actionTypes.CLEAR_ERRORS:
       return {
         ...state,
+        errors: null,
+      };
+    default:
+      return state;
+  }
+};
+
+// Shipping Address Reducer
+export const ShippingAddressReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.SHIPPING_ADDRESS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        message: null,
+        redirect: false,
+      };
+    case actionTypes.SHIPPING_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload,
+        redirect: true,
+      };
+
+    case actionTypes.GET_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        message: null,
+        address: action.payload,
+        redirect: false,
+      };
+    case actionTypes.SHIPPING_ADDRESS_FAIL:
+    case actionTypes.GET_SHIPPING_ADDRESS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        message: null,
+        errors: action.payload,
+        redirect: false,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
+        redirect: false,
         errors: null,
       };
     default:

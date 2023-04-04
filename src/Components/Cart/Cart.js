@@ -141,7 +141,7 @@ const Cart = () => {
                               </button>
                             </td>
                             <td className="border border-slate-700 pl-[10px] font-Roboto font-medium">
-                              ৳ {item.price * item.count}{" "}
+                              &#2547; {item.price * item.count}{" "}
                             </td>
                             <td className="border border-slate-700 pl-[60px]">
                               <button onClick={removeCartItem(item)}>

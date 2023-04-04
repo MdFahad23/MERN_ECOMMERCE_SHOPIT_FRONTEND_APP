@@ -11,7 +11,10 @@ import {
   profileReducer,
   UserReducer,
 } from "./redux/reducer/userReducer";
-import { CartItemReducer } from "./redux/reducer/CartReducer";
+import {
+  CartItemReducer,
+  ShippingAddressReducer,
+} from "./redux/reducer/CartReducer";
 
 const reducer = combineReducers({
   products: productsReducer,
@@ -20,6 +23,7 @@ const reducer = combineReducers({
   Profile: profileReducer,
   ForgotPassword: ForgotPasswordReducer,
   AddCartItem: CartItemReducer,
+  ShippingAddress: ShippingAddressReducer,
 });
 
 const initialState = {};
