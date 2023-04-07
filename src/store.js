@@ -15,6 +15,7 @@ import {
   CartItemReducer,
   ShippingAddressReducer,
 } from "./redux/reducer/CartReducer";
+import { PaymentReducer } from "./redux/reducer/PaymentReducer";
 
 const reducer = combineReducers({
   products: productsReducer,
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   ForgotPassword: ForgotPasswordReducer,
   AddCartItem: CartItemReducer,
   ShippingAddress: ShippingAddressReducer,
+  Payment: PaymentReducer,
 });
 
 const initialState = {};
