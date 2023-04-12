@@ -17,6 +17,8 @@ import ResetPassword from "../Components/UserRegister/LoginUser/forgotPassword/R
 import ShippingAddress from "../Components/Cart/ShippingAddress/ShippingAddress";
 import ShippingDetails from "../Components/Cart/ShippingAddress/ShippingDetails/ShippingDetails";
 import Payment from "../Components/Cart/ShippingAddress/ShippingDetails/payment/Payment";
+import Order from "../Components/Order/Order";
+import OrderDetails from "../Components/Order/OrderDetails/OrderDetails";
 
 const Router = () => {
   return (
@@ -123,6 +125,24 @@ const Router = () => {
             <Protected>
               {" "}
               <Payment />
+            </Protected>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <Protected>
+              {" "}
+              <Order />
+            </Protected>
+          }
+        />
+        <Route
+          path="/order/:id"
+          element={
+            <Protected>
+              {" "}
+              <OrderDetails />
             </Protected>
           }
         />

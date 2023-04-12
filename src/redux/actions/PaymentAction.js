@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { API } from "../../Utils/config";
 
+// GET Payment
 export const GetPayment = (token) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_PAYMENT_REQUEST });
@@ -12,8 +13,6 @@ export const GetPayment = (token) => async (dispatch) => {
     };
 
     const { data } = await axios.get(`${API}/api/v1/payment`, config);
-
-    console.log(data);
 
     if (data.status === "SUCCESS") {
       dispatch({
@@ -28,6 +27,23 @@ export const GetPayment = (token) => async (dispatch) => {
     }
   } catch (error) {
     dispatch({ type: actionTypes.ERRORS, payload: error });
+  }
+};
+
+// GET Order
+export const GetOrder = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_ORDER_REQUEST });
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.get(`${API}/api/v1/payment/order`, config);
+
+    dispatch({ type: actionTypes.GET_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: actionTypes.GET_ORDER_FAIL, payload: error });
   }
 };
 

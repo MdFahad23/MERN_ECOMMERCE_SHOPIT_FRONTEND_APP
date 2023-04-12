@@ -178,7 +178,7 @@ const Cart = () => {
                           Continue Shopping
                         </Link>
                       </li>
-                      <li>
+                      <li className={cart && cart.length > 0 ? "" : "hidden"}>
                         <Link
                           to="/shipping-address"
                           className="inline-block text-[#fff] rounded-[7px] px-[15px] py-[10px] bg-[tomato] font-Roboto font-bold hover:bg-[#fd2e0a] duration-700"

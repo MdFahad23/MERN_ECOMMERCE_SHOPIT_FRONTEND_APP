@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
+import { BsCart3, BsSearch } from "react-icons/bs";
 import {
   AiOutlineLogin,
   AiOutlineShoppingCart,
@@ -203,6 +203,12 @@ const Menu = () => {
                               <NavLink to="/Cart" className="nav_link">
                                 <AiOutlineShoppingCart className="mr-[8px]" />{" "}
                                 Cart
+                              </NavLink>
+                            </li>
+                            {/* List */}
+                            <li className="nav_list">
+                              <NavLink to="/order" className="nav_link">
+                                <BsCart3 className="mr-[8px]" /> My Order
                               </NavLink>
                             </li>
                             {/* List */}
