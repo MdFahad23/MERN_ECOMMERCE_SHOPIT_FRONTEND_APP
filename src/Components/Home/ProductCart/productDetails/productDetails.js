@@ -1,9 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStart from "react-rating-stars-component";
 import { useAlert } from "react-alert";
 import { AiOutlineRight } from "react-icons/ai";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 
 import Layout from "../../../../Utils/Layout";
 import { API } from "../../../../Utils/config";
@@ -11,10 +19,15 @@ import Reviews from "./Reviews/Reviews";
 import { isAuthentication, userInfo } from "../../../../Utils/auth";
 import { AddCartItem } from "../../../../redux/actions/CartAction";
 import { clearError } from "../../../../redux/actions/userAction";
+import { PutReviews } from "../../../../redux/actions/productAction";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
+
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const options = {
     edit: false,
@@ -27,6 +40,7 @@ const ProductDetails = () => {
   const { message, success, errors } = useSelector(
     (state) => state.AddCartItem
   );
+  const { messages } = useSelector((state) => state.Reviews);
 
   const { state } = useLocation();
   const {
@@ -39,6 +53,22 @@ const ProductDetails = () => {
     description,
     reviews,
   } = state;
+
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+
+  const reviewSubmitHandler = () => {
+    const myForm = {
+      rating: rating,
+      comment: comment,
+      productId: id,
+    };
+
+    dispatch(PutReviews(userInfo().jwt, myForm));
+
+    setOpen(false);
+  };
 
   const handleAddCartItem = (product) => () => {
     if (isAuthentication()) {
@@ -60,8 +90,10 @@ const ProductDetails = () => {
     } else if (errors) {
       alert.error(errors.message);
       dispatch(clearError());
+    } else if (messages) {
+      alert.success("Review Submitted Successfully");
     }
-  }, [dispatch, alert, message, success, errors]);
+  }, [dispatch, alert, message, success, errors, messages]);
 
   return (
     <Layout title={`${name}/Product-Details Page`} className="bg-[#EFF0F5]">
@@ -128,9 +160,43 @@ const ProductDetails = () => {
                 </p>
               </div>
               <hr />
-              <button className="inline-block my-[20px] text-[#fff] rounded-2xl py-[10px] px-[15px] bg-[tomato] font-Roboto font-bold hover:bg-[#fd2e0a] duration-700">
+              <button
+                className="inline-block my-[20px] text-[#fff] rounded-2xl py-[10px] px-[15px] bg-[tomato] font-Roboto font-bold hover:bg-[#fd2e0a] duration-700"
+                onClick={submitReviewToggle}
+              >
                 Submit Review
               </button>
+              <Dialog
+                aria-labelledby="simple-dialog-title"
+                open={open}
+                onClose={submitReviewToggle}
+              >
+                <DialogTitle>Submit Review</DialogTitle>
+                <DialogContent className="flex flex-col">
+                  <Rating
+                    onChange={(e) => setRating(e.target.value)}
+                    value={rating}
+                    size="large"
+                  />
+
+                  <textarea
+                    className="border border-[#00000015] m-[10px] outline-none p-[15px] font-Roboto font-semibold"
+                    cols="30"
+                    rows="5"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </DialogContent>
+
+                <DialogActions>
+                  <Button onClick={submitReviewToggle} color="secondary">
+                    Cancel
+                  </Button>
+                  <Button onClick={reviewSubmitHandler} color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </div>

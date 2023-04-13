@@ -81,3 +81,20 @@ export const getCategory = () => async (dispatch) => {
     dispatch({ type: actionTypes.ALL_CATEGORY_FAIL, payload: error.response });
   }
 };
+
+// Put Reviews
+export const PutReviews = (token, formData) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.REVIEWS_REQUEST });
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.put(`${API}/api/v1/review`, formData, config);
+
+    dispatch({ type: actionTypes.REVIEWS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: actionTypes.REVIEWS_FAIL, payload: error });
+  }
+};

@@ -30,6 +30,33 @@ export const productsReducer = (state = { products: [] }, action) => {
   }
 };
 
+export const ReviewsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.REVIEWS_REQUEST:
+      return {
+        loading: true,
+      };
+    case actionTypes.REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        messages: action.payload,
+      };
+    case actionTypes.REVIEWS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const CategoryReducer = (state = { Category: [] }, action) => {
   switch (action.type) {
     case actionTypes.ALL_CATEGORY_SUCCESS:
