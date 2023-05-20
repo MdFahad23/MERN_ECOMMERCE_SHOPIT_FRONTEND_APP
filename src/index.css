@@ -28,8 +28,11 @@ body {
   }
 
   /* Footer */
-  .footer_bs {
-    @apply ml-[10px];
+  .footer_list {
+    @apply text-[12px] pt-[5px] cursor-pointer hover:underline hover:duration-100;
+  }
+  .footer_card_item {
+    @apply text-[#fff] col-span-2 max-[768px]:col-span-4 max-[375px]:col-span-6 pb-[10px];
   }
 }
 

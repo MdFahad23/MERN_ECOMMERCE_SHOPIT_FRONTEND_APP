@@ -8,7 +8,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { MdProductionQuantityLimits } from "react-icons/md";
+import { MdProductionQuantityLimits, MdSpaceDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -212,11 +212,21 @@ const Menu = () => {
                               </NavLink>
                             </li>
                             {/* List */}
+                            {userInfo().role === "admin" && (
+                              <li className="nav_list">
+                                <NavLink to="/" className="nav_link">
+                                  <MdSpaceDashboard className="mr-[8px]" />{" "}
+                                  Dashboard
+                                </NavLink>
+                              </li>
+                            )}
+                            {/* List */}
                             <li className="nav_list">
                               <NavLink to="/user/profile" className="nav_link">
                                 <FaUserCircle className="mr-[8px]" /> Profile
                               </NavLink>
                             </li>
+
                             {/* List Logout */}
                             <li className="text-[18px] border-b-[1px] text-center border-[#d7d7d72b] font-Roboto font-bold pl-[10px] py-[5px] bg-[#E6E6E6] hover:z-50">
                               <span
